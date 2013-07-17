@@ -1,0 +1,13 @@
+APP_PROJECT_PATH := $(NDK_PROJECT_PATH)
+
+APP_BUILD_SCRIPT := $(APP_PROJECT_PATH)/jni/Android.mk
+
+APP_STL := gnustl_static
+
+APP_CPPFLAG = -std=gnu++0x
+
+NDK_TOOLCHAIN_VERSION := 4.7
+
+NDK_DEBUG=1
+
+APP_PLATFORM := android-9

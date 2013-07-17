@@ -1,0 +1,51 @@
+### Sam Fuller and Isaac Parker's Android Gitignore :) ###
+
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+obj/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+#binaries
+*.so
+*.o
+
+#NDK Debugging
+gdb.setup
+gdbserver
+
+#Output APK and other build stuff
+out/
+
+### IDE and Editor Specific ###
+
+#Common text editor savefile
+*.swp
+*~
+
+#OS X likes to leave treats...
+.DS_Store
+
+#More treats
+*Thumbs.db
+
+# Eclipse project files
+.classpath
+.project
+.cproject
+
+#android-studio
+.idea/
+*.iml

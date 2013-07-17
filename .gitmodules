@@ -1,0 +1,6 @@
+[submodule "jni/MANE"]
+	path = jni/MANE
+	url = https://github.com/MANEtainers/MANE.git
+[submodule "jni/metalancer"]
+	path = jni/metalancer
+	url = git@box.sianware.com:metalancer.git
