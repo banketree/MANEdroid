@@ -41,11 +41,6 @@ out/
 #More treats
 *Thumbs.db
 
-# Eclipse project files
-.classpath
-.project
-.cproject
-
 #android-studio
 .idea/
 *.iml
