@@ -26,15 +26,15 @@ public class MyRenderer implements GLSurfaceView.Renderer
 	@Override
 	public void onSurfaceChanged(GL10 gl, int width, int height)
 	{
-		GLES20.glViewport(0, 0, width, height);
+		nativeGame.LoadContext(width, height);
 	}
 
-	@Override
+	boolean frameRendered = false;
 	
+	@Override
 	public void onDrawFrame(GL10 gl) 
 	{
 		nativeGame.DrawAndUpdate();
-		//GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 	}
 
 }

@@ -5,6 +5,7 @@ VORBIS_SRC_PATH	:= libvorbis-1.3.3/
 OPENAL_SRC_PATH := openal-soft-android/
 LUA_SRC_PATH 	:= lua-5.2.2/
 GLEW_SRC_PATH	:= glew-1.9.0/
+PORTAUDIO_SRC_PATH := portaudio/
 
 #libogg
 include $(CLEAR_VARS)
@@ -95,6 +96,30 @@ LOCAL_SHARED_LIBRARIES :=  \
 
 include $(BUILD_SHARED_LIBRARY)
 
+#libportaudio
+include $(CLEAR_VARS)
+LOCAL_MODULE := libportaudio
+LOCAL_C_INCLUDES := \
+	$(LOCAL_PATH)/$(PORTAUDIO_SRC_PATH)include \
+	$(LOCAL_PATH)/$(PORTAUDIO_SRC_PATH)src/common \
+	$(LOCAL_PATH)/$(PORTAUDIO_SRC_PATH)src/os/unix
+LOCAL_CFLAGS += -DPA_LOG_API_CALLS -DPA_LITTLE_ENDIAN -DPA_USE_OPENSLES
+LOCAL_SRC_FILES :=  \
+	$(PORTAUDIO_SRC_PATH)src/common/pa_converters.c \
+	$(PORTAUDIO_SRC_PATH)src/common/pa_front.c \
+	$(PORTAUDIO_SRC_PATH)src/common/pa_cpuload.c \
+	$(PORTAUDIO_SRC_PATH)src/common/pa_debugprint.c \
+	$(PORTAUDIO_SRC_PATH)src/common/pa_process.c \
+	$(PORTAUDIO_SRC_PATH)src/common/pa_trace.c \
+	$(PORTAUDIO_SRC_PATH)src/common/pa_ringbuffer.c \
+	$(PORTAUDIO_SRC_PATH)src/common/pa_stream.c \
+	$(PORTAUDIO_SRC_PATH)src/common/pa_allocation.c \
+	$(PORTAUDIO_SRC_PATH)src/common/pa_dither.c \
+	$(PORTAUDIO_SRC_PATH)src/os/unix/pa_unix_hostapis.c \
+	$(PORTAUDIO_SRC_PATH)src/os/unix/pa_unix_util.c \
+	$(PORTAUDIO_SRC_PATH)src/hostapi/opensles/pa_opensles.c
+LOCAL_LDLIBS    := -lOpenSLES
+include $(BUILD_SHARED_LIBRARY)
 
 #liblua5.2
 include $(CLEAR_VARS)
@@ -152,14 +177,15 @@ WILDCARD_LOCAL_SRC_FILES := $(wildcard $(LOCAL_PATH)/MANE/src/*.cpp) \
 	$(wildcard $(LOCAL_PATH)/MANE/MBM/src/*.cpp)
 	
 LOCAL_SRC_FILES	:= $(subst jni/, ,$(WILDCARD_LOCAL_SRC_FILES))
-LOCAL_C_INCLUDES :=$(LOCAL_PATH)/MANE/include \
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/MANE/include \
 	$(LOCAL_PATH)/$(OGG_SRC_PATH)include \
 	$(LOCAL_PATH)/$(VORBIS_SRC_PATH)include \
 	$(LOCAL_PATH)/$(OPENAL_SRC_PATH)include \
 	$(LOCAL_PATH)/$(LUA_SRC_PATH)src \
-	$(LOCAL_PATH)/$(GLEW_SRC_PATH)include
+	$(LOCAL_PATH)/$(GLEW_SRC_PATH)include \
+	$(LOCAL_PATH)/$(PORTAUDIO_SRC_PATH)include \
 
-LOCAL_SHARED_LIBRARIES := libogg libvorbis libopenal liblua5.2 
+LOCAL_SHARED_LIBRARIES := libogg libvorbis libopenal liblua5.2  libportaudio
 LOCAL_LDLIBS    := -llog -lGLESv2 -landroid
 include $(BUILD_SHARED_LIBRARY)
 
@@ -176,9 +202,9 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/MANE/include \
 	$(LOCAL_PATH)/$(OPENAL_SRC_PATH)include \
 	$(LOCAL_PATH)/$(LUA_SRC_PATH)src \
 	$(LOCAL_PATH)/$(GLEW_SRC_PATH)include \
+	$(LOCAL_PATH)/$(PORTAUDIO_SRC_PATH)include \
 		
-LOCAL_SHARED_LIBRARIES := \
-	libmane
+LOCAL_SHARED_LIBRARIES := libmane
 LOCAL_LDLIBS    := -llog -lGLESv2 -landroid
 
 include $(BUILD_SHARED_LIBRARY)

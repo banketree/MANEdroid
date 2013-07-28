@@ -23,5 +23,6 @@ public class MANEWrapper
 	}
 	
 	public native void DrawAndUpdate();
+	public native void LoadContext(int width, int height);
 	
 }
